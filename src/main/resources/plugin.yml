@@ -1,0 +1,7 @@
+main: com.wynnlab.WynnLabAPIPlugin
+name: WynnLabAPI
+version: 1.0
+description: The WynnLab API
+api-version: 1.16
+authors: [ Siinus ]
+depend: [ KBukkit ]

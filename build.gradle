@@ -7,10 +7,24 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven {
+        name = 'papermc-repo'
+        url = 'https://papermc.io/repo/repository/maven-public/'
+    }
+    flatDir {
+        dirs 'D:/Libraries/Java'
+    }
 }
 
 dependencies {
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    // Paper (Spigot) API
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+
+    // Craftbukkit & NMS
+    compileOnly name: 'craftbukkit-1.16.5'
+
+    // Kotlin
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 test {
