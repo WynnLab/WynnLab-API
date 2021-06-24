@@ -3,14 +3,17 @@ plugins {
 }
 
 group = 'com.wynnlab'
-version = '1.0-SNAPSHOT'
+version = '1.1.0'
+
+ext {
+    kotlinVersion = '1.5.10'
+    apiVersion = '1.17'
+    paperRelease = '0.1-SNAPSHOT'
+}
 
 repositories {
     mavenCentral()
-    maven {
-        name = 'papermc-repo'
-        url = 'https://papermc.io/repo/repository/maven-public/'
-    }
+    maven { url = 'https://papermc.io/repo/repository/maven-public/' }
     flatDir {
         dirs 'D:/Libraries/Java'
     }
@@ -18,23 +21,32 @@ repositories {
 
 dependencies {
     // Paper (Spigot) API
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+    compileOnly "io.papermc.paper:paper-api:$apiVersion-R$paperRelease"
 
     // Craftbukkit & NMS
-    compileOnly name: 'craftbukkit-1.16.5'
+    compileOnly name: "craftbukkit-$apiVersion"
 
     // Kotlin
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }
 
 test {
     useJUnit()
 }
 
+sourceCompatibility = 16
+targetCompatibility = 16
+
 compileKotlin {
-    kotlinOptions.jvmTarget = '1.8'
+    kotlinOptions.jvmTarget = '16'
 }
 
 compileTestKotlin {
-    kotlinOptions.jvmTarget = '1.8'
+    kotlinOptions.jvmTarget = '16'
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [VERSION: version]
+    }
 }
